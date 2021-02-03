@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, ScrollView, View, FlatList, TouchableOpacity, Image } from 'react-native';
+import { Text, ScrollView, View } from 'react-native';
 import { Button, Title } from 'react-native-paper';
-import LinearGradient from 'react-native-linear-gradient';
 
 import Header from '../../components/Header';
 import Hero from '../../components/Hero';
 import ButtonVertical from '../../components/ButtonVertical';
 import PreviewList from '../../components/PreviewList';
+import Section from '../../components/Section';
 
 import styles from './styles';
 
@@ -27,11 +27,13 @@ const Home = () => {
         </Button>
         <ButtonVertical text='Saiba Mais' icon='information-outline' />
       </View>
-
       <View style={styles.previewContainer}>
         <Title style={styles.previewTitle}>Prévias</Title>
         <PreviewList />
       </View>
+      {[1,2,3,4].map((section, index) => (
+        <Section key={index} />
+      ))}
     </ScrollView>
   )
 }
