@@ -13,7 +13,7 @@ const Hero = () => {
       <Image 
         style={styles.logo}
         resizeMode='contain'
-        source={{ uri: 'https://i.imgur.com/oDHGhpX.png'}}
+        source={{ uri: 'https://i.imgur.com/yhjZgM3.png'}}
       />
       <View style={styles.containerTop10}>
         <Image 

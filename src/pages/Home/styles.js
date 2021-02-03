@@ -5,30 +5,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     flex: 1,
   },
-  logo: {
-    display: 'flex',
-    alignSelf: 'center',
-    marginBottom: 100
+  menuHeader: {
+    width: '100%',
+    height: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly' 
   },
-  input: {
-    height: 59.0,
-    borderBottomEndRadius: 10,
-    borderBottomStartRadius: 10,
-    borderTopEndRadius: 10,
-    borderTopStartRadius: 10,
-    marginBottom: 20
-  },
-  button: {
-    height: 59.0,
-    borderRadius: 10,
-    marginBottom: 20,
+  playButton: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
+    height: 39,
+    alignContent: 'center',
   },
-  textSmall: {
-    color: 'rgba(255, 255, 255, 0.6)',
-    textAlign: 'center',
-    marginTop: 30
+  previewContainer: {
+    width: '100%',
+    marginTop: 50
+  },
+  previewTitle: {
+    marginLeft: 20
   }
 });
 
