@@ -5,14 +5,14 @@ import PreviewItem from '../PreviewItem';
 
 import styles from './styles';
 
-const PreviewList = () => {
+const PreviewList = ({ movieList }) => {
   return (
     <FlatList
       horizontal
       style={styles.flatListContainer}
-      data={[1, 2, 3, 4, 5, 6, 7]}
+      data={movieList}
       renderItem={({ item, index }) => (
-        <PreviewItem index={index} />
+        <PreviewItem index={index} movie={item} />
       )}
     />
   )

@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
   logo: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 100,
-    height: 50,
+    alignSelf: 'center',
+    width: 90,
+    height: 40,
     position: 'absolute',
-    bottom: -10,
+    bottom: 0,
     zIndex: 10,
   },
   gradient: {
