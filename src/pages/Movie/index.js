@@ -10,8 +10,9 @@ import {
   View, 
   FlatList,
   ScrollView, 
+  SafeAreaView,
   ImageBackground,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 
 import { 
@@ -21,6 +22,7 @@ import {
   Caption
 } from 'react-native-paper';
 
+import RadialGradient from 'react-native-radial-gradient';
 import { SinglePickerMaterialDialog } from 'react-native-material-dialog';
 
 import api from '../../services/api';
@@ -81,17 +83,26 @@ const Movie = ({ route, navigation }) => {
           style={styles.cover} 
           source={{ uri: movie?.capa }}
         >
-          <TouchableOpacity>
-            <Icon 
-              style={styles.backButton}
-              name='arrow-left'
-              color={'#fff'} 
-              size={25} 
-              onPress={()=> {
-                navigation.goBack();
-              }}
-            />
-          </TouchableOpacity>
+          <SafeAreaView>
+            <TouchableOpacity style={styles.backButtonContainer}>
+              <Icon 
+                style={styles.backButtonIcon}
+                name='arrow-left'
+                color={'#fff'} 
+                size={25} 
+                onPress={()=> {
+                  navigation.goBack();
+                }}
+              />
+              <RadialGradient
+                style={{width:50,height:50}}
+                colors={['rgba(0, 0, 0, 0.2)','rgba(0, 0, 0, 0.1)', 'rgba(0, 0, 0, 0)']}
+                stops={[0.1, 0.5, 0.75]}
+                center={[25, 25]}
+                radius={25}
+              />
+            </TouchableOpacity>
+          </SafeAreaView>
         </ImageBackground>
         <View style={styles.container}>
           <Title>

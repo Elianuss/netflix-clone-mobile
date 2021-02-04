@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import styles from './styles';
@@ -9,7 +9,7 @@ const Header = () => {
     <LinearGradient 
       style={styles.header} 
       colors={['rgba(0, 0, 0, 1.0)', 'rgba(0, 0, 0, 0.7)', 'rgba(0, 0, 0, 0)']}>
-      <View style={styles.headerSafeAreaView}>
+      <SafeAreaView style={styles.headerSafeAreaView}>
         <Image source={require('../../assets/logo-compact.png')} />
         <TouchableOpacity>
           <Text style={styles.textWhite}>Séries</Text>
@@ -20,7 +20,7 @@ const Header = () => {
         <TouchableOpacity>
           <Text style={styles.textWhite}>Minha Lista</Text>
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     </LinearGradient>
   )
 }

@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
 
   const login = async () => {
     try {
-      const response = await api.post('/usuario/login', { email: credentials.email.toLowerCase(), senha: credentials.password });
+      const response = await api.post('/usuario/login', { email: credentials.email, senha: credentials.password });
       const res = response.data;
       if(res.error) {
         alert(res.mensagem);
@@ -63,6 +63,8 @@ const Login = ({ navigation }) => {
         <>
           <TextInput
             mode='flat'
+            autoCapitalize="none"
+            textContentType="emailAddress"
             style={styles.input}
             label="Email ou número de telefone"
             value={credentials.email}

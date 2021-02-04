@@ -48,8 +48,19 @@ const styles = StyleSheet.create({
   episodeList: {
     marginVertical: 20
   },
-  backButton: {
-    padding: 20
+  backButtonContainer: {
+    marginLeft: 10,
+    width: 50,
+    height: 50,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  backButtonIcon: {
+    padding: 10,
+    position: 'absolute',
+    alignSelf: 'center',
+    zIndex: 9
   }
 });
 
