@@ -4,16 +4,16 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import styles from './styles';
 
-const Hero = () => {
+const Hero = ({ mainMovie }) => {
   return(
     <ImageBackground
       style={styles.hero} 
       resizeMode='cover'
-      source={{ uri: 'https://i.imgur.com/HOOt0ZR.jpg' }}>
+      source={{ uri: mainMovie.capa }}>
       <Image 
         style={styles.logo}
         resizeMode='contain'
-        source={{ uri: 'https://i.imgur.com/yhjZgM3.png'}}
+        source={{ uri: mainMovie.logoMobile ? mainMovie.logoMobile : mainMovie.logo }}
       />
       <View style={styles.containerTop10}>
         <Image 

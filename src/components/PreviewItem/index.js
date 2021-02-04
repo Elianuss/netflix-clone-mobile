@@ -14,7 +14,7 @@ const PreviewItem = ({ index, movie }) => {
   }}>
     <View style={styles.oval}>
       <Image resizeMode='cover' style={styles.cover} source={{ uri: movie.capa }} />
-      <Image resizeMode='contain' style={styles.logo} source={{ uri: movie.logo }} />
+      <Image resizeMode='contain' style={styles.logo} source={{ uri: movie.logoMobile ? movie.logoMobile : movie.logo }} />
       <LinearGradient 
         style={styles.gradient}
         colors={['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.7)', 'rgba(0, 0, 0, 0.9)']}

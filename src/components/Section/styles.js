@@ -28,13 +28,20 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   logo: {
-    width: 120,
-    height: 40,
+    width: 100,
+    height: 60,
     position: 'absolute',
     zIndex: 10,
-    bottom: 20,
+    bottom: 10,
     alignSelf: 'center',
     justifyContent: 'center',
+  },
+  gradient: {
+    height: 150,
+    width: '100%',
+    position: 'absolute',
+    zIndex: 9,
+    bottom: 0
   }
 });
 

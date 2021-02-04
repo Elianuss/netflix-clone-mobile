@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, RefreshControl } from 'react-native';
 import { Title, Button } from 'react-native-paper';
 
 import Header from '../../components/Header';
@@ -15,22 +15,25 @@ const Home = () => {
 
   const [main, setMain] = useState({});
   const [sections, setSections] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const getHome = async () => { 
     try { 
+      setRefreshing(true);
       const response = await api.get('/home');
       const res = response.data;
       if(res.error) {
+        setRefreshing(false);
         alert(res.mensagem);
         return false;
       }
 
-      console.log(res);
-
       setMain(res.principal);
       setSections(res.secoes);
+      setRefreshing(false);
 
     } catch(err) {
+      setRefreshing(false);
       alert(err.message);
     }
   }
@@ -40,9 +43,18 @@ const Home = () => {
   }, []);
 
   return (
-    <ScrollView style={styles.bgDark}>
+    <ScrollView 
+      style={styles.bgDark}
+      refreshControl={
+        <RefreshControl 
+          tintColor={'#fff'}
+          refreshing={refreshing}
+          onRefresh={getHome}
+        />
+      }
+    >
       <Header />
-      <Hero />
+      <Hero mainMovie={main} />
       <View style={styles.menuHeader}>
         <ButtonVertical text='Minha Lista' icon='plus' />
         <Button 
@@ -59,8 +71,8 @@ const Home = () => {
         <Title style={styles.previewTitle}>Prévias</Title>
         <PreviewList movieList={sections[0]} />
       </View>
-      {[1,2,3,4].map((section, index) => (
-        <Section key={index} />
+      {sections.map((section, index) => (
+        <Section key={index} movieSection={section} />
       ))}
     </ScrollView>
   )

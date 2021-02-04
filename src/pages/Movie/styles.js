@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
   },
   episodeList: {
     marginVertical: 20
+  },
+  backButton: {
+    padding: 20
   }
 });
 

@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     padding: 2.5,
     width: 90,
     height: 90,
-    borderRadius: 45
+    borderRadius: 45.0
   },
   cover: {
     height: 85,
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 9,
     bottom: -10,
+    left: 2
   }
 });
 

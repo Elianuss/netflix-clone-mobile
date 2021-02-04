@@ -4,27 +4,26 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native'
-
+3
 import styles from './styles';
 
-const Episode = ({ index }) => {
+const Episode = ({ episode }) => {
   return (
     <TouchableOpacity style={styles.episodeContainer}>
       <View style={styles.infoContainer}>
         <Image 
           style={styles.episodeThumb}
-          source={{ uri: 'https://picsum.photos/300/200' }}
+          source={{ uri: episode?.capa }}
         />
         <View style>
-          <Title style={[styles.textWhite, { fontSize: 15 }]}>{index+1}. Nome do Episódio</Title>
+          <Title style={[styles.textWhite, { fontSize: 15 }]}>{episode?.numero}. {episode?.titulo}</Title>
           <Caption style={styles.textWhite}>45 min</Caption>
         </View>
       </View>
       <Caption style={styles.descriptionCaption}>
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.
+        {episode?.descricao}
       </Caption>
     </TouchableOpacity>
   )

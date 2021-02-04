@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ButtonVertical from '../../components/ButtonVertical';
 import Section from '../../components/Section';
 import Episode from '../../components/Episode';
@@ -23,26 +23,48 @@ import {
 
 import { SinglePickerMaterialDialog } from 'react-native-material-dialog';
 
+import api from '../../services/api';
 import styles from './styles';
 
-const Movie = () => {
+const Movie = ({ route, navigation }) => {
 
-  const [type] = useState('serie');
+  const { movie, section } = route.params
   const [visible, setVisible] = useState(false);
+  const [episodes, setEpisodes] = useState([]);
   const [season, setSeason] = useState({
-    value: 1,
-    label: 'Temporada 1'
+    value: movie?.temporadas[0]?._id,
+    label: movie?.temporadas[0]?.titulo
   });
+
+  const getEpisodes = async (seasonId) => {
+    try {
+      const response = await api.get(`/episodios/temporada/${seasonId}`);
+      const res = response.data
+      if(res.error) {
+        alert(res.mensagem);
+        return false;
+      }      
+      setEpisodes(res.episodios);
+
+    } catch(err) {
+      alert(err.message)
+    }
+  }
+
+  useEffect(() => {
+    if (movie?.tipo == 'serie') {
+      getEpisodes(season.value);
+    }
+  }, []);
 
   return (
     <>
       <SinglePickerMaterialDialog
-        title={'Série - Temporadas'}
-        items={[
-          { value: 1, label: 'Temporada 1' },
-          { value: 2, label: 'Temporada 2' },
-          { value: 3, label: 'Temporada 3' },
-        ]}
+        title={`${movie?.titulo} Temporadas`}
+        items={movie?.temporadas.map(season => ({
+          value: season._id,
+          label: season.titulo 
+        }))}
         visible={visible}
         selectedItem={season}
         onCancel={() => {
@@ -51,16 +73,29 @@ const Movie = () => {
         onOk={(result) => {
           setVisible(false);
           setSeason(result.selectedItem);
+          getEpisodes(result.selectedItem.value);
         }}
       />
       <ScrollView style={styles.scrollView}>
         <ImageBackground 
           style={styles.cover} 
-          source={{ uri: 'https://i.imgur.com/HOOt0ZR.jpg' }}
-        />
+          source={{ uri: movie?.capa }}
+        >
+          <TouchableOpacity>
+            <Icon 
+              style={styles.backButton}
+              name='arrow-left'
+              color={'#fff'} 
+              size={25} 
+              onPress={()=> {
+                navigation.goBack();
+              }}
+            />
+          </TouchableOpacity>
+        </ImageBackground>
         <View style={styles.container}>
           <Title>
-            Nome do Filme
+            {movie?.titulo}
           </Title>
           <Button 
             style={styles.playButton} 
@@ -71,20 +106,20 @@ const Movie = () => {
             <Text>Assistir</Text>
           </Button>
           <Paragraph>
-            Pregadores Profanos. Autoridades Corruptas. Amantes Assassinos. Numa cidade cheia de pecadores, um jovem busca justiça.
+            {movie?.descricao}
           </Paragraph>
           <Caption style={styles.caption}>
             Elenco: {' '}
             <Caption style={styles.captionWhite}>
-              Elenco: Silvio Sampaio, Juliana Righi, Omar Sampaio, Mikael Lopes. 
+              {movie?.elenco.join(', ')}
             </Caption>
             {'\n'}Gêneros: {' '}
             <Caption style={styles.captionWhite}>
-              Ação, Aventura, Dramático.
+              {movie?.generos.join(', ')}
             </Caption>
             {'\n'}Cenas e momentos: {' '}
             <Caption style={styles.captionWhite}>
-              Violentos.
+              {movie?.cenas_momentos.join(', ')}
             </Caption>
           </Caption>
           <View style={styles.menu}>
@@ -93,7 +128,7 @@ const Movie = () => {
             <ButtonVertical icon='send' text='Compartilhe' />
             <ButtonVertical icon='download' text='Baixar' />
           </View>
-          {type == 'serie' && (
+          {movie?.tipo == 'serie' && (
             <>
               <TouchableOpacity 
                 onPress={(e) => {
@@ -107,16 +142,16 @@ const Movie = () => {
               <FlatList 
                 vertical
                 style={styles.episodeList}
-                data={[1, 2, 3, 4, 5]}
+                data={episodes}
                 renderItem={({item, index}) => (
-                  <Episode key={index} index={index} />
+                  <Episode key={index} episode={item} />
                 )}
               />
             </>
           )}
         </View>
-        {type == 'filme' && (
-          <Section border />
+        {movie?.tipo == 'filme' && (
+          <Section border movieSection={section}/>
         )}
       </ScrollView>
     </>
